@@ -25,7 +25,7 @@ class Analyze:
             reports_dir.mkdir(parents=True, exist_ok=True)
             file_path = reports_dir / file_name
             df_top5_by_experience.to_csv(file_path, index=False, encoding="utf-8")
-            self.logger.info(f"Top 5 Pokémon CSV saved at {file_path}")
+            self.logger.info(f"Top 5 Pokémon by base experience CSV saved at {file_path}")
         except Exception as e:
             self.logger.error(f"Failed to save Top 5 Pokémon CSV: {e}")
 
@@ -42,7 +42,7 @@ class Analyze:
             reports_dir.mkdir(parents=True, exist_ok=True)
             file_path = reports_dir / file_name
             df_stats_by_type.to_csv(file_path, index=False, encoding="utf-8")
-            self.logger.info(f"Stats CSV saved at {file_path}")
+            self.logger.info(f"Stats, HP, Attack, and Defense CSV saved at {file_path}")
         except Exception as e:
             self.logger.error(f"Failed to save Stats CSV: {e}")
         return file_path
