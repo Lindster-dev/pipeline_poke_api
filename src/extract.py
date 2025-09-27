@@ -11,7 +11,7 @@ class Extractor:
 
     def get_pokemon_list(self, limit: int = 100, offset: int = 0) -> list[dict] | None:
         """
-        Retorna a lista de Pokémon com base em limite e offset.
+        Retrieve the list of Pokémon based on limit and offset.
         """
         url = f"https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}"
         try:
@@ -24,7 +24,7 @@ class Extractor:
         
     def get_pokemon_details(self, pokemon_url: str) -> dict:
         """
-        Retorna os detalhes de um Pokémon específico a partir da URL.
+        Retrieve details of a specific Pokémon from its URL.
         """
         try:
             pokemon_id = pokemon_url.split("/")[-2]
@@ -38,7 +38,7 @@ class Extractor:
    
     def parse_pokemon(self, detils_pokemon: dict) -> dict:
         """
-        Converte o JSON de detalhes do Pokémon em um dicionário simplificado.
+        Convert Pokémon details JSON into a simplified dictionary.
         """
         stats = {stat["stat"]["name"]: stat["base_stat"] for stat in detils_pokemon["stats"]}
         return {
@@ -53,8 +53,8 @@ class Extractor:
         
     def process_extractor(self, limit: int, offset: int) -> pd.DataFrame | None:
         """
-        Orquestra a extração: busca a lista de Pokémon, coleta os detalhes
-        e retorna um DataFrame consolidado.
+        Orchestrates extraction: fetch Pokémon list, collect details,
+        and return a consolidated DataFrame.
         """
         data_pokemon_list = self.get_pokemon_list(limit, offset)
         if not data_pokemon_list:

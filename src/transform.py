@@ -5,17 +5,15 @@ logger = logging.getLogger(__name__)
 
 
 class Transform:
-    """Classe responsável por transformar os dados extraídos da PokeAPI."""
-
     def __init__(self, logger: logging.Logger):
         self.logger = logger
 
     def add_category(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Adiciona uma coluna 'Categoria' baseada na experiência base do Pokémon:
-        - < 50 → Fraco
-        - 50–100 → Médio
-        - > 100 → Forte
+        Add a 'Category' column based on the Pokémon's base experience:
+        - < 50 → Weak
+        - 50–100 → Medium
+        - > 100 → Strong
         """
         try:
             df["Categoria"] = df["Experiência Base"].apply(
@@ -28,7 +26,7 @@ class Transform:
 
     def stats_by_type(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Calcula a média de HP, Ataque e Defesa por tipo de Pokémon.
+        Calculate the average HP, Attack, and Defense by Pokémon type.
         """
         try:
             return (
@@ -43,7 +41,7 @@ class Transform:
         
     def pokemon_count_by_type(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Conta a quantidade de Pokémon por tipo.
+        Count the number of Pokémon per type.
         """
         try:
             return (
@@ -58,7 +56,7 @@ class Transform:
         
     def top5_by_experience(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Retorna os 5 Pokémon com maior experiência base.
+        Return the Top 5 Pokémon with the highest base experience.
         """
         try:
             df_top5_by_experience = df.nlargest(5, "Experiência Base")[["ID", "Nome", "Experiência Base"]]
@@ -70,11 +68,11 @@ class Transform:
 
     def process_transform_data_pokemon(self, df: pd.DataFrame):
         """
-        Executa todas as transformações:
-        - Top 5 por experiência
-        - Categorias por experiência
-        - Estatísticas médias por tipo
-        - Contagem por tipo
+        Execute all transformations:
+        - Top 5 by base experience
+        - Category by experience
+        - Average stats by type
+        - Count by type
         """
         df_top5_by_experience = self.top5_by_experience(df)
         df_category_pokemon = self.add_category(df)
