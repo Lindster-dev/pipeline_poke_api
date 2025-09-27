@@ -32,8 +32,8 @@ def main() -> bool:
             df_stats_by_type,
             df_count_by_type,
         ) = transformer.process_transform_data_pokemon(df_data_pokemon)
-        if df_top5_by_experience or df_stats_by_type is None:
-            logger.error("Nao tem dados suficiente para agerar o report")
+        if df_top5_by_experience is None or df_stats_by_type is None:
+            logger.error("Not enough data to generate the report")
             return False
         analyze.generate_report(
             df_data_pokemon=df_data_pokemon,
