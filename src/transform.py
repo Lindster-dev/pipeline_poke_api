@@ -21,7 +21,7 @@ class Transform:
             )
             return df
         except Exception as e:
-            self.logger.error(f"Erro ao adicionar a coluna 'Categoria': {e}")
+            self.logger.error(f"Failed to add 'Category' column: {e}")
             return None
 
     def stats_by_type(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -36,7 +36,7 @@ class Transform:
                 .reset_index().round(2)
             )
         except Exception as e:
-            self.logger.error(f"Erro ao calcular as médias: {e}")
+            self.logger.error(f"Failed to calculate stats by type: {e}")
             return None
         
     def pokemon_count_by_type(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -51,7 +51,7 @@ class Transform:
                 .reset_index(name="Quantidade")
             )
         except Exception as e:
-            self.logger.error(f"Erro ao contar os Pokémon por tipo: {e}")
+            self.logger.error(f"Failed to count Pokémon by type: {e}")
             return None
         
     def top5_by_experience(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -63,7 +63,7 @@ class Transform:
             self.logger.info("Top 5 Pokémon com maior experiência")
             return df_top5_by_experience
         except Exception as e:
-            self.logger.error(f"Erro ao converter a coluna 'Experiência Base': {e}")
+            self.logger.error(f"Failed to get Top 5 Pokémon by base experience: {e}")
             return None
 
     def process_transform_data_pokemon(self, df: pd.DataFrame):
