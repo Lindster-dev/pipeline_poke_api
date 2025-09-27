@@ -20,11 +20,11 @@ class Analyze:
         - Top 5 Pokémon por experiência base
         - Média de HP, Ataque e Defesa por tipo
         """
-        file_name = "relatorio_pokemon_top5.csv"
-        reports_dir = Path("datas") / "reports"
-        reports_dir.mkdir(parents=True, exist_ok=True)
-        file_path = reports_dir / file_name
         try:
+            file_name = "relatorio_pokemon_top5.csv"
+            reports_dir = Path("datas") / "reports"
+            reports_dir.mkdir(parents=True, exist_ok=True)
+            file_path = reports_dir / file_name
             top5.to_csv(file_path, index=False, encoding="utf-8")
         except Exception as e:
             self.logger.error(f"Erro ao salvar o CSV: {e}")
