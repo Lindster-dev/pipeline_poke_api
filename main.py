@@ -3,7 +3,7 @@ from datetime import datetime
 
 from src import Analyze, Extractor, Transform
 
-log_filename = f"logs/app_{datetime.now().strftime('%Y-%m-%d')}.log"
+log_filename = f"logs/pokemon_report_{datetime.now().strftime('%Y-%m-%d')}.log"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -21,9 +21,9 @@ def main() -> bool:
     try:
         extractor = Extractor(logger)
         transformer = Transform(logger)
-        analyzer = Analyze(logger)
-        df = extractor.process_extractor(limit=100, offset=0)
-        if df is None:
+        analyze = Analyze(logger)
+        df_data_pokemon = extractor.process_extractor(limit=100, offset=0)
+        if df_data_pokemon is None:
             logger.error("Failed to fetch data from PokeAPI")
             return False
         (
@@ -31,14 +31,14 @@ def main() -> bool:
             df_category_pokemon,
             df_stats_by_type,
             df_count_by_type,
-        ) = transformer.process_transform_data_pokemon(df)
+        ) = transformer.process_transform_data_pokemon(df_data_pokemon)
         if df_top5_by_experience or df_stats_by_type is None:
             logger.error("Nao tem dados suficiente para agerar o report")
             return False
-        analyzer.generate_report(
-            df=df,
-            top5=df_top5_by_experience,
-            stats=df_stats_by_type,
+        analyze.generate_report(
+            df_data_pokemon=df_data_pokemon,
+            df_top5_by_experience=df_top5_by_experience,
+            df_stats_by_type=df_stats_by_type,
         )
         return True
     except Exception as e:

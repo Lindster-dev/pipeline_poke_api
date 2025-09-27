@@ -1,6 +1,6 @@
 from .extract import Extractor
 from .transform import Transform
-from .analize import Analyze
+from .analyze import Analyze
 
 
 

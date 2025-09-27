@@ -56,16 +56,16 @@ class Extractor:
         Orquestra a extração: busca a lista de Pokémon, coleta os detalhes
         e retorna um DataFrame consolidado.
         """
-        pokemon_list = self.get_pokemon_list(limit, offset)
-        if not pokemon_list:
+        data_pokemon_list = self.get_pokemon_list(limit, offset)
+        if not data_pokemon_list:
             return None
-        self.logger.info(f"Found {len(pokemon_list)} pokemons")
+        self.logger.info(f"Found {len(data_pokemon_list)} pokemons")
         all_pokemons = []
-        for pokemon in pokemon_list:
-            details = self.get_pokemon_details(pokemon.get("url"))
-            if details:
+        for pokemon in data_pokemon_list:
+            pokemon_details = self.get_pokemon_details(pokemon.get("url"))
+            if pokemon_details:
                 try:
-                    parsed = self.parse_pokemon(details)
+                    parsed = self.parse_pokemon(pokemon_details)
                     all_pokemons.append(parsed)
                     self.logger.info(f"Processed pokemon: {parsed['Nome']}")
                 except Exception as e:
