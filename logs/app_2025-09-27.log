@@ -1,0 +1,4 @@
+2025-09-27 14:24:03,490 [INFO] __main__: CSV salvo em datas/reports/relatorio_pokemon_top5.csv
+2025-09-27 14:24:03,491 [INFO] __main__: CSV de estatísticas salvo em datas/reports/relatorio_pokemon_stats.csv
+2025-09-27 14:24:03,833 [INFO] __main__: Gráfico salvo em datas/reports/distribuicao_por_tipo_pokemon.png
+2025-09-27 14:24:03,833 [INFO] __main__: Relatório completo gerado com sucesso

@@ -13,8 +13,7 @@ class Extractor:
         """
         Retorna a lista de Pokémon com base em limite e offset.
         """
-        url_https = "https://pokeapi.co/api/v2/"
-        url = f"{url_https}/pokemon?limit={limit}&offset={offset}"
+        url = f"https://pokeapi.co/api/v2/pokemon?limit={limit}&offset={offset}"
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -35,7 +34,7 @@ class Extractor:
             return response.json()
         except requests.exceptions.RequestException as e:
             self.logger.error(f"Failed to fetch Pokémon details: {e}")
-            return {}
+            return None
    
     def parse_pokemon(self, detils_pokemon: dict) -> dict:
         """
@@ -60,10 +59,17 @@ class Extractor:
         pokemon_list = self.get_pokemon_list(limit, offset)
         if not pokemon_list:
             return None
+        self.logger.info(f"Found {len(pokemon_list)} pokemons")
         all_pokemons = []
         for pokemon in pokemon_list:
             details = self.get_pokemon_details(pokemon.get("url"))
             if details:
-                parsed = self.parse_pokemon(details)
-                all_pokemons.append(parsed)
+                try:
+                    parsed = self.parse_pokemon(details)
+                    all_pokemons.append(parsed)
+                    self.logger.info(f"Processed pokemon: {parsed['Nome']}")
+                except Exception as e:
+                    self.logger.error(f"Failed to parsed pokemon: {pokemon.get('url').split("/")[-2]} Error: {e}")
+            else:
+                self.logger.warning(f"Failed to process pokemon_id: {pokemon.get('url').split("/")[-2]}")
         return pd.DataFrame(all_pokemons)
